@@ -4,6 +4,8 @@ const https = require("https");
 const fs = require("fs");
 
 const connect = require("./database/connect");
+const notes = require("./routes/notes");
+const users = require("./routes/users");
 
 dotenv.config();
 
@@ -17,6 +19,13 @@ const server = https.createServer(
   { key: fs.readFileSync("key.pem"), cert: fs.readFileSync("cert.pem") },
   app
 );
+
+// user middlewares
+app.use(express.json());
+
+// these are all api routes
+app.use("/api/v1/notes", notes);
+app.use("/api/v1/users", users);
 
 // this function will establish a connection to the database start the express server
 const establishConnection = async () => {
