@@ -10,6 +10,6 @@ const {
 const router = Router();
 
 router.route("/").get(getNotes).post(createNote);
-router.route("/:title").get(getNote).patch(updateNote).delete(deleteNote);
+router.route("/:id").get(getNote).patch(updateNote).delete(deleteNote);
 
 module.exports = router;

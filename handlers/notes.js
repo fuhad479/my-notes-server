@@ -25,14 +25,14 @@ const updateNote = async (req, res) => {
 };
 
 const deleteNote = async (req, res) => {
-  const { title } = req.params;
+  const { id } = req.params;
 
   const db = await client.db("notes");
   const notes = await db.collection("notes");
   // delete a note from the database
-  await notes.deleteOne({ title });
+  await notes.deleteOne({ id });
   // send the success response
-  res.status(200).send({ message: "delete a note" });
+  res.status(200).send({ id });
 };
 
 module.exports = { createNote, getNotes, getNote, updateNote, deleteNote };
