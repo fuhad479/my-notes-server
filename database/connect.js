@@ -3,9 +3,7 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const client = new MongoClient(
-  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@my-notes.u3m1um9.mongodb.net/?retryWrites=true&w=majority`
-);
+const client = new MongoClient(process.env.CONNECTION_STRING);
 
 async function connect() {
   try {

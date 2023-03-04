@@ -35,7 +35,7 @@ const establishConnection = async () => {
     // connect with database
     await connect();
     // starting the https server
-    server.listen(port, () => console.log(`https://localhost:${port}`));
+    app.listen(port, () => console.log(`https://localhost:${port}`));
   } catch (error) {
     console.log(error);
   }
