@@ -13,11 +13,27 @@ const createNote = async (req, res) => {
 };
 
 const getNotes = async (req, res) => {
-  res.status(200).send({ message: "get all notes" });
+  const db = await client.db("notes");
+  const notes = await db.collection("notes");
+
+  // get all notes reference from the database
+  const cursor = await notes.find({}, { projection: { _id: 0 } });
+  // transform the notes reference to an actual array
+  const allNotes = await cursor.toArray();
+  // send the success response
+  res.status(200).send(allNotes);
 };
 
 const getNote = async (req, res) => {
-  res.status(200).send({ message: "get a notes" });
+  const { id } = req.params;
+
+  const db = await client.db("notes");
+  const notes = await db.collection("notes");
+  
+  // get a single note from the database
+  const note = await notes.findOne({ id }, { projection: { _id: 0 } });
+  // send the success response
+  res.status(200).send(note);
 };
 
 const updateNote = async (req, res) => {
