@@ -1,9 +1,10 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cors = require("cors");
 const https = require("https");
 const fs = require("fs");
 
-const connect = require("./database/connect");
+const { connect } = require("./database/connect");
 const notes = require("./routes/notes");
 const users = require("./routes/users");
 
@@ -21,6 +22,7 @@ const server = https.createServer(
 );
 
 // user middlewares
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
 
 // these are all api routes

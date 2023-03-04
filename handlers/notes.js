@@ -1,5 +1,15 @@
+const { client } = require("../database/connect");
+const processData = require("../utils/processData");
+
 const createNote = async (req, res) => {
-  res.status(201).send({ message: "create a new note" });
+  const note = processData(req.body);
+
+  const db = await client.db("notes");
+  const notes = await db.collection("notes");
+  // insert new note to the database
+  await notes.insertOne(note);
+  // send the success response
+  res.status(201).send(note);
 };
 
 const getNotes = async (req, res) => {
@@ -15,6 +25,13 @@ const updateNote = async (req, res) => {
 };
 
 const deleteNote = async (req, res) => {
+  const { title } = req.params;
+
+  const db = await client.db("notes");
+  const notes = await db.collection("notes");
+  // delete a note from the database
+  await notes.deleteOne({ title });
+  // send the success response
   res.status(200).send({ message: "delete a note" });
 };
 
